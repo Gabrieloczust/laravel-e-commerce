@@ -17,7 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Site\HomeController@index')->name('site');
 
 // Carrinho
-Route::post('/', 'Site\CartController@update')->name('cart.update');
+Route::prefix('cart')->group(function(){
+    Route::post('store/{product}', 'Site\CartController@store')->name('cart.store');
+    Route::get('plus/{product}', 'Site\CartController@plus')->name('cart.plus');
+    Route::get('less/{product}', 'Site\CartController@less')->name('cart.less');
+    Route::post('clear', 'Site\CartController@clear')->name('cart.clear');
+    Route::post('save', 'Site\CartController@save')->name('cart.save');
+});
 
 // Admin
 Route::prefix('admin')->group(function () {

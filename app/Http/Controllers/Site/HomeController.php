@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Category;
+use App\Cart;
 use App\Product;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $warning = null;
 
+        // Categorias
         $categories = DB::table('categories')
             ->rightJoin('products', 'categories.id', '=', 'products.category_id')
             ->selectRaw('categories.*')
@@ -21,6 +22,7 @@ class HomeController extends Controller
             ->get();
         $categories = $categories->keyBy('id');
 
+        // Filtro de categoria
         $filterCategory = $request->input('category');
         $existCategory = $categories->get($filterCategory);
 
@@ -30,19 +32,26 @@ class HomeController extends Controller
             $products = Product::orderBy('name')->get();
         }
 
-        
+        // Pesquisa por busca
+        $warning = null;
         $search = $request->input('search');
         if ($search) {
             $productsSearch = Product::where('name', 'like', '%' . $search . '%')->orderBy('name')->get();
-            if(count($productsSearch) > 0){
+            if (count($productsSearch) > 0) {
                 $products = $productsSearch;
-            } else{
+            } else {
                 $products = [];
                 $warning = "Nenhum resultado encontrado para <b>$search</b>, tente novamente!";
             }
         }
-        
+
+        // Quantidade de produtos
         $countProducts = count($products);
+
+        // Carrinho
+        $cart = Session::get('cart', []);
+        $cartTotal = Cart::cartTotal($cart);
+        $cartCount = Cart::cartCount($cart);
 
         return view('site.home', [
             'categories' => $categories,
@@ -52,6 +61,9 @@ class HomeController extends Controller
             'countProducts' => $countProducts,
             'warning' => $warning,
             'search' => $search,
+            'cart' => $cart,
+            'cartCount' => $cartCount,
+            'cartTotal' => $cartTotal,
         ]);
     }
 }

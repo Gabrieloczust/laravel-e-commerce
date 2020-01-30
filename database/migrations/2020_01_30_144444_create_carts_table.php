@@ -15,9 +15,10 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->string('product_name');
             $table->float('product_price')->default(0);
-            $table->integer('product_amount')->default(0);
+            $table->integer('product_amount')->default(1);
+            $table->timestamps();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('sale_id');
 
@@ -25,6 +26,7 @@ class CreateCartsTable extends Migration
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('CASCADE');
         });
     }
+
 
     /**
      * Reverse the migrations.
