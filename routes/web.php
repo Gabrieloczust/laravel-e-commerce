@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 // Site
 Route::get('/', 'Site\HomeController@index')->name('site');
 
+// Carrinho
+Route::post('/', 'Site\CartController@update')->name('cart.update');
+
 // Admin
 Route::prefix('admin')->group(function () {
     Route::get('/', 'Admin\DashboardController@index')->name('admin');

@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-<div class="card">
+<div class="card w-100">
     <div class="card-header">
         <h1 class="d-md-flex justify-content-between align-items-center m-0">
             <span>Produtos <span class="badge badge-primary">{{ $countProducts }}</span></span>
@@ -53,7 +53,10 @@
                             </h6>
                         @endif
                         <p class="card-text">{{ $product->description }}</p>
-                        <a href="#" title="Comprar" class="btn btn-primary">Comprar</a>
+                        <form action="" method="POST">
+                            @csrf
+                            <input type="submit" value="Comprar" class="btn btn-primary w-100">
+                        </form>
                     </div>
                 </div>
             </div>
