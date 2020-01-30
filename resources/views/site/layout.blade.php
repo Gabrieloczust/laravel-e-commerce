@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Loja - @yield('title')</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('site/ico/Paomedia-Small-N-Flat-Shop.ico') }}" type="image/x-icon">
 </head>
 
 <body>
@@ -19,26 +21,95 @@
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div>
-                <a class="btn btn-primary" href="{{ route('admin') }}">Admin</a>
-                <a class="btn btn-success ml-2" data-toggle="collapse" href="#cart">Carrinho</a>
+            <div class="d-flex align-items-center">
+                <a href="{{ route('admin') }}">
+                    <img class="icon icon1" src="{{ asset('site/svg/unauthorized-person.svg') }}" alt="Admin"
+                        title="Admin">
+                </a>
+                <div class="button-cart ml-4 toggleCart">
+                    <img class="icon icon2" src="{{ asset('site/svg/shopping-cart.svg') }}" alt="Carrinho"
+                        title="Carrinho">
+                    <span class="badge badge-danger">0</span>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- View -->
-    <div class="container d-flex my-4">
+    <div class="container d-flex my-4 position-relative">
         @yield('content')
+        <!-- Cart -->
+        <div class="bg-dark p-4 cartOpen" id="cart">
+            <button class="close toggleCart text-light" title="Fechar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h2 class="text-center text-light mb-4">Carrinho</h2>
+            <div class="card mb-2">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div class="mr-4">
+                        <img class="icon" src="{{ asset('site/svg/minus.svg') }}" alt="minus" title="minus"
+                            style="width:25px;">
+                        <img class="icon" src="{{ asset('site/svg/plus.svg') }}" alt="plus" title="plus"
+                            style="width:25px;">
+                    </div>
+                    <div class="d-flex justify-content-between flex-grow-1">
+                        <span><b>(1) </b>Produto Teste</span>
+                        <span>R$ 49,99</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div class="mr-4">
+                        <img class="icon" src="{{ asset('site/svg/minus.svg') }}" alt="minus" title="minus"
+                            style="width:25px;">
+                        <img class="icon" src="{{ asset('site/svg/plus.svg') }}" alt="plus" title="plus"
+                            style="width:25px;">
+                    </div>
+                    <div class="d-flex justify-content-between flex-grow-1">
+                        <span><b>(1) </b>Produto Teste</span>
+                        <span>R$ 49,99</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div class="mr-4">
+                        <img class="icon" src="{{ asset('site/svg/minus.svg') }}" alt="minus" title="minus"
+                            style="width:25px;">
+                        <img class="icon" src="{{ asset('site/svg/plus.svg') }}" alt="plus" title="plus"
+                            style="width:25px;">
+                    </div>
+                    <div class="d-flex justify-content-between flex-grow-1">
+                        <span><b>(1) </b>Produto Teste</span>
+                        <span>R$ 49,99</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <b>(3) Produtos - R$ 149,97</b>
+                </div>
+            </div>
+            <div class="card flex-row justify-content-between bg-transparent">
+                <button class="btn btn-danger" style="width:49%" title="Limpar Carrinho">Limpar</button>
+                <button class="btn btn-success" style="width:49%" title="FInalizar Compra">Concluir</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Cart -->
-    <div class="flex-grow-1 bg-dark p-4 collapse" id="cart">
-        <h2 class="text-center text-light">Carrinho</h2>
-    </div>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".toggleCart").click(function () {
+                $('#cart').toggleClass('cartOpen')
+                $("#cart").animate({
+                    width: 'toggle'
+                });
+            });
+        });
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </script>
 </body>
 
 </html>

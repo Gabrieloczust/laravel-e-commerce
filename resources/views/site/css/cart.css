@@ -1,0 +1,50 @@
+#cart {
+    position: absolute;
+    width: 46%;
+    height: 100%;
+    right: 15px;
+    top: 0;
+    opacity: 0.98;
+    overflow: auto;
+}
+
+#cart * {
+    transition: .25s all;
+    opacity: 0;
+}
+
+#cart.cartOpen * {
+    opacity: 1;
+}
+
+.toggleCart:focus {
+    outline: 0;
+}
+
+.button-cart {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.icon{
+    cursor: pointer;
+}
+
+.icon:hover{
+    transform: scale(1.1);
+}
+
+.icon1{
+    height: 30px;
+}
+
+.icon2{
+    height: 25px;
+}
+
+.button-cart span {
+    position: absolute;
+    right: -12px;
+    top: -6px
+}

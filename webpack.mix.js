@@ -13,5 +13,5 @@ const mix = require('laravel-mix');
 
 mix
     .styles([
-        
-    ], '');
+        'resources/views/site/css/cart.css'
+    ], 'public/site/css/style.css');
