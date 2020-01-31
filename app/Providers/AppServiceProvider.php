@@ -27,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('money', function ($money){
             return "<?php echo 'R$ ' . number_format((float)$money, 2, ',', '.') ?>";
         });
+
+        Blade::directive('percent', function ($number){
+            return "<?php echo number_format($number, 2, ',', ' ') . '%' ?>";
+        });
     }
 }

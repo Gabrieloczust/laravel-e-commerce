@@ -36,7 +36,7 @@
             <div class="info-box">
                 <span class="info-box-icon bg-info"><i class="fas fa-tshirt"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Novos Produtos</span>
+                    <span class="info-box-text">Produtos</span>
                     <span class="info-box-number">{{ $filterProducts }}</span>                
                 </div>
             </div>
@@ -45,7 +45,7 @@
             <div class="info-box">
                 <span class="info-box-icon bg-warning"><i class="fas fa-tags"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Novas Categorias</span>
+                    <span class="info-box-text">Categorias</span>
                     <span class="info-box-number">{{ $filterCategories }}</span>
                 </div>
             </div>
@@ -54,8 +54,8 @@
             <div class="info-box">
                 <span class="info-box-icon bg-success"><i class="fas fa-dollar-sign"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Faturamento</span>
-                    <span class="info-box-number">@money($filterSales)</span>
+                    <span class="info-box-text">Vendas</span>
+                    <span class="info-box-number">{{ $filterSales }}</span>
                 </div>
             </div>
         </div>
@@ -76,13 +76,21 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <p class="d-flex flex-column">
-                            <span class="text-bold text-lg">@money($filterSales)</span>
-                            <span>Total de Vendas</span>
+                            <span class="text-bold text-lg">@money($filterSalesTotal)</span>
+                            <span class="text-muted">Total de Vendas</span>
                         </p>
                         <p class="ml-auto d-flex flex-column text-right">
-                            <span class="text-success">
-                                <i class="fas fa-arrow-up"></i> 100%
-                            </span>
+                            @if($filterIncrease > 0)
+                                <span class="text-success">
+                                    <i class="fas fa-arrow-up"></i> 
+                                    @percent($filterIncrease)
+                                </span>
+                            @else
+                                <span class="text-danger">
+                                    <i class="fas fa-arrow-down"></i> 
+                                    @percent($filterIncrease)
+                                </span>
+                            @endif
                             <span class="text-muted">Desde o último mês</span>
                         </p>
                     </div>
