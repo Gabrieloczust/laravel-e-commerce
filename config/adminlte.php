@@ -31,7 +31,8 @@ return [
     */
 
     'logo' => '<b>Loja</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
+    /*'logo_img' => 'vendor/adminlte/dist/img/logo.png',*/
+    'logo_img' => 'site/ico/Paomedia-Small-N-Flat-Shop.ico',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -176,7 +177,7 @@ return [
         [
             'text'        => 'Dashboard',
             'url'         => 'admin/dashboard',
-            'active'      => ['admin', 'admin/dashboard', 'admin/dashboard/*', 'admin/dashboard*'],
+            'active'      => ['admin', 'admin/dashboard', 'admin/dashboard/*', 'admin/dashboard*', 'admin?*'],
             'icon'        => 'nav-icon fas fa-sm fa-chart-pie',
         ],
         [

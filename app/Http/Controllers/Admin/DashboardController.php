@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Product;
+use App\Sale;
 
 class DashboardController extends Controller
 {
@@ -16,24 +18,29 @@ class DashboardController extends Controller
 
         $filter = ($request->input('month', date('m')));
 
-        $filterProducts = DB::table('products')
-        ->selectRaw('count(*) as monthCount, MONTH(created_at) AS month')
-        ->groupBy('month')
-        ->having('month', $filter)
-        ->first();
-
-        $filterCategories = DB::table('categories')
-        ->selectRaw('count(*) as monthCount, MONTH(created_at) AS month')
-        ->groupBy('month')
-        ->having('month', $filter)
-        ->first();
+        $filterProducts = Product::whereMonth('created_at', $filter)->count();
+        $filterCategories = Category::whereMonth('created_at', $filter)->count();
+        $filterSales = Sale::whereMonth('created_at', $filter)->sum('total');
         
+        $sales = Sale::whereMonth('created_at', $filter)->get();
+        
+        //$days = cal_days_in_month(CAL_GREGORIAN, $filter, date('Y'));
+        $days = [];
+        foreach ($sales as $sale) :
+            $dia = date("d", strtotime($sale->created_at));
+            $days[$dia]['dia'] = 'Dia ' . $dia;
+            $days[$dia]['total'] = $sale->total;
+        endforeach;
+        
+
         return view('admin.dashboard.index', [
             'months' => $months,
+            'days' => $days,
             'filter' => $filter,
             'filterProducts' => $filterProducts,
             'filterCategories' => $filterCategories,
-            'sales' => 'R$ 0,00'
+            'filterSales' => $filterSales,
+            'sales' => $sales,
         ]);
     }
 }

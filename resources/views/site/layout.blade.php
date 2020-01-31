@@ -55,9 +55,9 @@
                     <div class="d-flex justify-content-between flex-grow-1">
                         <span>
                             <b>({{ $item->product_amount }}) </b>
-                            {{ $item->product_name }} - R$ {{ $item->product_price }}
+                            {{ $item->product_name }} - @money($item->product_price)
                         </span>
-                        <b>R$ {{ $item->product_total }}</b>
+                        <b>@money($item->product_total)</b>
                     </div>
                     <div class="ml-4">
                         @if($item->product_amount > 0)
@@ -85,7 +85,7 @@
             @if($cartCount > 0)
             <div class="card mb-2">
                 <div class="card-body d-flex justify-content-center align-items-center">
-                    <b>({{ $cartCount }}) {{ $cartCount > 1 ? 'Produtos' : 'Produto' }} - R$ {{ $cartTotal }}</b>
+                    <b>({{ $cartCount }}) {{ $cartCount > 1 ? 'Produtos' : 'Produto' }} - @money($cartTotal)</b>
                 </div>
             </div>
             <div class="card flex-row justify-content-between bg-transparent">
