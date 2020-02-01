@@ -31,7 +31,7 @@ class DashboardController extends Controller
         // Faturamento no mes
         $filterSalesTotal = Sale::whereMonth('created_at', $filter)->sum('total');
         
-        // Venda feita por dia do mes
+        // Vendas feitas por cada dia do mes
         $sales = Sale::whereMonth('created_at', $filter)->get();   
         $days = [];
         foreach ($sales as $sale) :

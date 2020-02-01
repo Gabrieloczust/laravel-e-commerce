@@ -5,11 +5,41 @@
 @section('title', 'Vendas')
 
 @section('content_header')
-    <h1>Vendas</h1>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Vendas {{ $year }}</h1>
+</div>
 @stop
 
 @section('content')
-    ...
+<!-- Char -->
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <p class="d-flex flex-column">
+                        <span class="text-bold text-lg">@money($salesYear)</span>
+                        <span class="text-muted">Total de Vendas</span>
+                    </p>
+                    <a href="javascript:void(0);">Exibir relatório</a>
+                </div>
+            </div>
+            <div class="position-relative m-4">
+                <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink">
+                        <div class=""></div>
+                    </div>
+                </div>
+                <canvas id="sales-chart" height="200" style="display: block; width: 479px; height: 200px;" width="479"
+                    class="chartjs-render-monitor"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Char -->
 @stop
 
 
@@ -23,29 +53,33 @@
             fontStyle: 'bold'
         }
 
+        var months = [
+            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro','Dezembro' 
+        ];
+
         var mode = 'index'
         var intersect = true
 
         var $salesChart = $('#sales-chart')
         var salesChart = new Chart($salesChart, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: [
-                    @foreach($days as $day => $total)
-                        'Dia {{ $day }}',
+                    @foreach($salesMonth as $saleMonth) 
+                        months[{{ $saleMonth['month'] - 1 }}],
                     @endforeach
                 ],
                 datasets: [
                     {
-                        backgroundColor: ["rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)", "rgba(255, 99, 132, 0.2)",],
-                        borderColor: ["rgb(255, 159, 64)","rgb(255, 205, 86)","rgb(75, 192, 192)","rgb(54, 162, 235)","rgb(153, 102, 255)","rgb(201, 203, 207)","rgb(255, 99, 132)",],
+                        borderColor: "#36a2eb",                        
                         borderWidth: 1,
+                        fill: false,
                         data: [
-                            @foreach($days as $key => $day)
-                                {{ $day['total'] }},
+                            @foreach($salesMonth as $saleMonth) 
+                                {{ $saleMonth['total'] }},
                             @endforeach
                         ]
-                    }
+                    },
                 ]
             },
             options: {
