@@ -17,19 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Site\HomeController@index')->name('site');
 
 // Carrinho
-Route::prefix('cart')->group(function(){
-    Route::post('store/{product}', 'Site\CartController@store')->name('cart.store');
-    Route::get('plus/{product}', 'Site\CartController@plus')->name('cart.plus');
-    Route::get('less/{product}', 'Site\CartController@less')->name('cart.less');
-    Route::post('clear', 'Site\CartController@clear')->name('cart.clear');
-    Route::post('save', 'Site\CartController@save')->name('cart.save');
+Route::prefix('cart')->namespace('Site')->name('cart.')->group(function () {
+    Route::post('store/{product}', 'CartController@store')->name('store');
+    Route::get('plus/{product}', 'CartController@plus')->name('plus');
+    Route::get('less/{product}', 'CartController@less')->name('less');
+    Route::post('clear', 'CartController@clear')->name('clear');
+    Route::post('save', 'CartController@save')->name('save');
 });
 
 // Admin
-Route::prefix('admin')->group(function () {
-    Route::get('/', 'Admin\DashboardController@index')->name('admin');
-    Route::get('dashboard', 'Admin\DashboardController@index')->name('admin.dashboard');
-    Route::resource('products', 'Admin\ProductController');
-    Route::resource('categories', 'Admin\CategoryController');
-    Route::get('sales', 'Admin\SaleController@index')->name('admin.sales');
+Route::prefix('admin')->namespace('Admin')->group(function () {
+    Route::get('/', 'DashboardController@index')->name('admin');
+    Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
+    Route::resource('products', 'ProductController');
+    Route::resource('categories', 'CategoryController');
+    Route::get('sales', 'SaleController@index')->name('admin.sales');
 });
