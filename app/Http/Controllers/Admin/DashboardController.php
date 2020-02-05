@@ -43,7 +43,7 @@ class DashboardController extends Controller
         // Faturamento em % relaciondo ao mes passado
         $lastMonth = date('m', $filter);
         $lastSales = Sale::whereMonth('created_at', $lastMonth)->sum('total');
-        $filterIncrease = (($filterSalesTotal - $lastSales) / $lastSales) * 100;        
+        @$filterIncrease = (($filterSalesTotal - $lastSales) / $lastSales) * 100;        
 
         return view('admin.dashboard.index', [
             'months' => $months,

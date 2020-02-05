@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Site
-Route::get('/', 'Site\HomeController@index')->name('site');
+Route::namespace('Site')->group(function () {
+    Route::get('/', 'SiteController@index')->name('site');
+    Route::get('/products', 'SiteController@index')->name('site.products');
+});
 
 // Carrinho
 Route::prefix('cart')->namespace('Site')->name('cart.')->group(function () {

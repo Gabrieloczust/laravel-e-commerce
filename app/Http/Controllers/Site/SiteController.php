@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class HomeController extends Controller
+class SiteController extends Controller
 {
     public function index(Request $request)
     {
@@ -53,7 +53,7 @@ class HomeController extends Controller
         $cartTotal = Cart::cartTotal($cart);
         $cartCount = Cart::cartCount($cart);
 
-        return view('site.home', [
+        return view('site.products', [
             'categories' => $categories,
             'products' => $products,
             'filterCategory' => $filterCategory,
