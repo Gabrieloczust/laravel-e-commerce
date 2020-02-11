@@ -1,6 +1,6 @@
 ## Info
 
-Sistema básico de uma LOJA para praticar conhecimentos obtidos do Laravel, está dividido em duas áreas, sendo a frente responsável pela apresentação/compra dos produtos atráves de um carrinho, e área de admin para cadastro de categorias/produtos e apresentação de gráficos sobre as vendas.
+E-commerce para praticar conhecimentos obtidos em Laravel, está dividido em duas áreas, sendo a frente responsável pela apresentação/compra dos produtos atráves de um carrinho, e área de admin para cadastro de categorias/produtos e apresentação de gráficos sobre as vendas.
 
 ## Ambiente de teste
 Criar tabelas no banco:
@@ -12,10 +12,10 @@ Criar produtos/categorias/vendas aleatórios:
 ## Ajustes
 
 - Modal para confirmação de exclusão em produtos
-- Carrinho de compras erro na sessão ao adicionar novo produto
+- Carrinho de compras erro na sessão
 - Gráfico de vendas exportar relatório
 - Versão mobile do carrinho
-- API para as Categorias
+- Terminar a API 
 
 ## Versões
 
