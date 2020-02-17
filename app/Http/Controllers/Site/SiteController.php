@@ -15,8 +15,8 @@ class SiteController extends Controller
     {
 
         // Categorias
-        $categories = DB::table('categories')
-            ->rightJoin('products', 'categories.id', '=', 'products.category_id')
+        $categories = DB::table('products')
+            ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
             ->selectRaw('categories.*')
             ->groupBy('categories.name')
             ->get();
