@@ -12,10 +12,9 @@ Criar produtos/categorias/vendas aleatórios:
 ## Ajustes
 
 - Modal para confirmação de exclusão em produtos
-- Carrinho de compras erro na sessão
 - Gráfico de vendas exportar relatório
 - Versão mobile do carrinho
-- Terminar a API 
+- [Terminar a API](https://gm2020.herokuapp.com/api/products)
 
 ## Versões
 
