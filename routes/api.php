@@ -28,7 +28,6 @@ Route::namespace('Api')->name('api.')->group(function () {
         Route::post('/', 'ProductController@store')->name('product.store');
         Route::put('/{id}', 'ProductController@update')->name('product.update');
         Route::delete('/{id}', 'ProductController@destroy')->name('product.destroy');
-
     });
 
     Route::prefix('categories')->group(function () {
@@ -38,8 +37,10 @@ Route::namespace('Api')->name('api.')->group(function () {
 
         Route::post('/', 'CategoryController@store')->name('category.store');
         Route::put('/{id}', 'CategoryController@update')->name('category.update');
-        Route::delete('/{id}', 'CategoryController@detroy')->name('category.destroy');
-
+        Route::delete('/{id}', 'CategoryController@destroy')->name('category.destroy');
     });
+});
 
+Route::fallback(function () {
+    return response()->json(['msg' => 'Página não encontrada!']);
 });
