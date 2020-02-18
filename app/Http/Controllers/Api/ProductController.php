@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Api\ApiMessage;
 use App\Product;
-use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -18,17 +16,17 @@ class ProductController extends Controller
         $this->product = $product;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-
-        return response()->json($this->product->paginate(10));
+        $get = $request->paginate ? $this->product->paginate($request->paginate) : $this->product->all();
+        return response()->json($get);
     }
 
     public function show($id)
     {
         $product = $this->product->find($id);
 
-        if (!$product) return response()->json(ApiMessage::errorMessage("Produto nao encontrado!", 4040), 404);
+        if (!$product) return response()->json(ApiMessage::errorMessage("Produto nao encontrado!", 404), 404);
 
         return response()->json(['data' => $product]);
     }
@@ -44,7 +42,7 @@ class ProductController extends Controller
             if (config('app.debug')) {
                 return response()->json(ApiMessage::errorMessage($e->getMessage(), 1010), 500);
             } else {
-                return response()->json(ApiMessage::errorMessage('Houve um erro ao realizar operacao de criar!'), 500);
+                return response()->json(ApiMessage::errorMessage('Houve um erro ao realizar operacao de criar!', 1010), 500);
             }
         }
     }
@@ -52,11 +50,11 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         try {
-
             $product = $this->product->find($id);
-            $product->update($request->all());
+            if (!$product) return response()->json(ApiMessage::errorMessage('Produto nao encontrado!', 404), 404);
 
-            return response()->json(ApiMessage::successMessage("Produto $request->name atualizado com sucesso!", 201));
+            $product->update($request->all());
+            return response()->json(ApiMessage::successMessage("Produto $id atualizado com sucesso!", 201));
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiMessage::errorMessage($e->getMessage(), 1011), 500);
@@ -69,10 +67,11 @@ class ProductController extends Controller
     public function destroy(Product $id)
     {
         try {
+            $product = $this->product->find($id);
+            if (!$product) return response()->json(ApiMessage::errorMessage('Produto nao encontrado!', 404), 404);
 
-            $id->delete();
-
-            return response()->json(ApiMessage::successMessage("Produto $id->name removido com sucesso!", 200));
+            $product->delete();
+            return response()->json(ApiMessage::successMessage("Produto $product->name removido com sucesso!", 200));
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiMessage::errorMessage($e->getMessage(), 1012), 500);

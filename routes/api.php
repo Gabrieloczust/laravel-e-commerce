@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::namespace('Api')->name('api.')->group(function () {
+
     Route::prefix('products')->group(function () {
 
         Route::get('/', 'ProductController@index')->name('products');
@@ -28,4 +29,18 @@ Route::namespace('Api')->name('api.')->group(function () {
         Route::put('/{id}', 'ProductController@update')->name('product.update');
         Route::delete('/{id}', 'ProductController@destroy')->name('product.destroy');
     });
+
+    Route::prefix('categories')->group(function () {
+
+        Route::get('/', 'CategoryController@index')->name('categories');
+        Route::get('/{id}', 'CategoryController@show')->name('category');
+
+        Route::post('/', 'CategoryController@store')->name('category.store');
+        Route::put('/{id}', 'CategoryController@update')->name('category.update');
+        Route::delete('/{id}', 'CategoryController@destroy')->name('category.destroy');
+    });
+});
+
+Route::fallback(function () {
+    return response()->json(['msg' => 'Página não encontrada!']);
 });
