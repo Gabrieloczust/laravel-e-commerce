@@ -3,6 +3,10 @@
 E-commerce para praticar conhecimentos obtidos em Laravel, está dividido em duas áreas, sendo a frente responsável pela apresentação/compra dos produtos atráves de um carrinho, e área de admin para cadastro de categorias/produtos e apresentação de gráficos sobre as vendas.
 
 ## Ambiente de teste
+
+Instalar dependências
+- composer install
+
 Criar tabelas no banco:
 - php artisan migrate:fresh
 
